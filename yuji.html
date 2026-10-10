@@ -37,18 +37,14 @@
     .aura::after { inset:19%; transform:rotate(37deg); border-style:dashed; }
     .energy { position:absolute; z-index:0; width:90%; height:85%; overflow:visible; filter:drop-shadow(0 0 7px rgba(255,87,132,.6)); }
     .energy path { fill:none; stroke:rgba(255,125,154,.62); stroke-width:2; stroke-linecap:round; stroke-dasharray:8 15; animation:energyFlow 4s linear infinite; }
-    .yuji-figure { position:relative; z-index:1; width:min(100%,440px); height:min(74vh,650px); overflow:visible; filter:drop-shadow(0 22px 30px rgba(20,0,19,.3)); }
-    .yuji-body { transform-box:fill-box; transform-origin:center bottom; animation:yujiBreathe 3.2s ease-in-out infinite; }
-    .yuji-raised-arm { transform-box:fill-box; transform-origin:70% 100%; animation:armBounce 3.2s ease-in-out infinite; }
-    .yuji-hair { transform-box:fill-box; transform-origin:center bottom; animation:hairBounce 3.2s ease-in-out infinite; }
+    .official-art { display:grid; place-items:center; width:100%; }
+    .yuji-figure { position:relative; z-index:1; width:min(100%,440px); height:min(74vh,650px); object-fit:contain; filter:drop-shadow(0 22px 30px rgba(20,0,19,.3)); animation:yujiBreathe 3.2s ease-in-out infinite; }
     .spark { position:absolute; z-index:2; color:#ffe2a4; font-size:19px; text-shadow:0 0 12px #ffcf7b; animation:sparkFloat 2.4s ease-in-out infinite alternate; }
     .spark.one { left:9%; top:26%; }.spark.two { right:7%; top:34%; animation-delay:-1.2s; }.spark.three { left:19%; bottom:21%; font-size:12px; animation-delay:-.6s; }
     .page-foot { position:relative; z-index:2; display:flex; justify-content:center; padding:0 20px 28px; color:rgba(255,226,190,.46); font:8px Arial,sans-serif; letter-spacing:.2em; text-align:center; }
     @keyframes auraPulse { 0%,100%{opacity:.58;transform:scale(.96)} 50%{opacity:1;transform:scale(1.045)} }
     @keyframes energyFlow { to{stroke-dashoffset:-92} }
     @keyframes yujiBreathe { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-    @keyframes armBounce { 0%,100%{transform:rotate(0)} 50%{transform:rotate(-2deg)} }
-    @keyframes hairBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
     @keyframes sparkFloat { from{transform:translateY(5px) scale(.82);opacity:.55} to{transform:translateY(-10px) scale(1.12);opacity:1} }
     @keyframes letterArrive { from{opacity:0;transform:translateY(20px) rotate(-3deg)} to{opacity:1;transform:translateY(0) rotate(-1.4deg)} }
     @media (max-width:760px) {
@@ -92,59 +88,10 @@
         <div class="aura" aria-hidden="true"></div>
         <svg class="energy" viewBox="0 0 420 580" aria-hidden="true"><path d="M35 406C83 376 42 329 80 292S93 214 48 186M350 440c-38-51 32-92 1-137s-5-92 37-122M62 490c33-28 8-60 29-79M349 115c-24 30-9 54-30 75"/><path d="M73 145c23-21 33-15 48-40M330 494c-23-22-29-45-18-68"/></svg>
         <span class="spark one" aria-hidden="true">✦</span><span class="spark two" aria-hidden="true">✧</span><span class="spark three" aria-hidden="true">✦</span>
-        <svg class="yuji-figure" viewBox="0 0 420 620" role="img" aria-labelledby="yuji-title yuji-desc">
-          <title id="yuji-title">Yuji Itadori</title>
-          <desc id="yuji-desc">A full-body, original vector illustration of Yuji Itadori in his dark uniform, smiling and raising a fist in celebration.</desc>
-          <defs>
-            <linearGradient id="uniform" x1="0" x2="1"><stop stop-color="#1d1522"/><stop offset=".5" stop-color="#393043"/><stop offset="1" stop-color="#17121d"/></linearGradient>
-            <linearGradient id="pants" x1="0" x2="1"><stop stop-color="#17121d"/><stop offset=".5" stop-color="#302838"/><stop offset="1" stop-color="#17121d"/></linearGradient>
-            <linearGradient id="skin" x1="0" x2="1"><stop stop-color="#e5ad8d"/><stop offset=".55" stop-color="#f1c5a5"/><stop offset="1" stop-color="#d99d80"/></linearGradient>
-            <linearGradient id="hair" x1="0" x2="1"><stop stop-color="#d87791"/><stop offset=".5" stop-color="#f2a5b1"/><stop offset="1" stop-color="#c65f7e"/></linearGradient>
-            <linearGradient id="hood" x1="0" x2="1"><stop stop-color="#9e2447"/><stop offset=".5" stop-color="#d1485f"/><stop offset="1" stop-color="#8b1d43"/></linearGradient>
-          </defs>
-          <g class="yuji-body">
-            <!-- legs and sneakers -->
-            <path d="M145 393L213 398L204 526L187 579L138 581L151 540L137 469Z" fill="url(#pants)" stroke="#604456" stroke-width="3"/>
-            <path d="M215 398L276 393L286 470L267 535L279 573L233 581L219 538L212 470Z" fill="url(#pants)" stroke="#604456" stroke-width="3"/>
-            <path d="M140 559L187 564L182 588Q165 599 124 592L119 584Q126 570 140 559Z" fill="#f0e8dc" stroke="#2a202d" stroke-width="4"/>
-            <path d="M234 559L275 557L297 581Q298 590 286 594L236 591L228 583Z" fill="#f0e8dc" stroke="#2a202d" stroke-width="4"/>
-            <path d="M121 586Q152 594 183 585M235 585Q269 592 296 584" fill="none" stroke="#bd3855" stroke-width="6" stroke-linecap="round"/>
-            <path d="M161 421L174 431M250 415L263 429M157 474L176 480M238 474L259 482" fill="none" stroke="#776071" stroke-width="3" stroke-linecap="round" opacity=".7"/>
-            <!-- left arm -->
-            <path d="M144 226Q116 236 104 270L83 339Q81 357 99 362L116 357L143 291L171 269Z" fill="url(#uniform)" stroke="#17121d" stroke-width="4"/>
-            <path d="M83 337Q72 351 82 371L96 386Q109 389 119 374L115 358L99 352Z" fill="url(#skin)" stroke="#9a6559" stroke-width="3"/>
-            <!-- raised right arm -->
-            <g class="yuji-raised-arm">
-              <path d="M264 226Q292 211 311 187L326 150Q332 134 348 139L363 151Q369 161 358 182L340 226Q327 249 293 267Z" fill="url(#uniform)" stroke="#17121d" stroke-width="4"/>
-              <path d="M326 151Q320 137 326 117L330 95Q334 82 345 87L353 92L357 80Q363 71 371 78L377 86L381 76Q390 70 396 80L400 94Q406 89 411 97L414 117Q413 136 394 151L370 164L349 160Z" fill="url(#skin)" stroke="#9a6559" stroke-width="3" stroke-linejoin="round"/>
-              <path d="M335 119l13 7M354 108l12 8M375 101l12 7" fill="none" stroke="#b77967" stroke-width="3" stroke-linecap="round"/>
-              <path d="M318 152Q340 141 363 160L351 184Q331 178 315 174Z" fill="url(#hood)" stroke="#711d3d" stroke-width="3"/>
-            </g>
-            <!-- torso, uniform, and hood -->
-            <path d="M148 222Q173 207 195 211L231 211Q258 209 281 230L304 295L282 385Q219 407 136 383L122 295Z" fill="url(#uniform)" stroke="#17121d" stroke-width="4"/>
-            <path d="M174 213Q210 236 249 213L268 244Q236 267 212 272Q184 265 156 242Z" fill="url(#hood)" stroke="#74203e" stroke-width="4"/>
-            <path d="M209 266L210 386M156 273L174 284M266 273L247 286" fill="none" stroke="#d34b64" stroke-width="4" stroke-linecap="round"/>
-            <path d="M146 300L169 309M278 302L254 311" fill="none" stroke="#6f5265" stroke-width="3"/>
-            <circle cx="211" cy="300" r="4" fill="#f5d596"/><circle cx="211" cy="330" r="4" fill="#f5d596"/>
-            <!-- neck and face -->
-            <path d="M185 191L185 225Q210 244 236 222L231 185Z" fill="url(#skin)" stroke="#b47b68" stroke-width="3"/>
-            <path d="M157 126Q165 93 208 91Q252 94 264 128L258 179Q249 211 214 219Q179 215 164 184Z" fill="url(#skin)" stroke="#a76a5b" stroke-width="3"/>
-            <path d="M169 152Q185 145 198 151M224 151Q239 144 252 150" fill="none" stroke="#503241" stroke-width="5" stroke-linecap="round"/>
-            <path d="M181 159L192 160M231 159L242 158" stroke="#231b27" stroke-width="5" stroke-linecap="round"/>
-            <path d="M204 176Q214 181 223 175" fill="none" stroke="#9b5c58" stroke-width="3" stroke-linecap="round"/>
-            <path d="M164 168L174 173M245 170L254 165" fill="none" stroke="#ba796d" stroke-width="2"/>
-            <!-- signature pink hair -->
-            <g class="yuji-hair" fill="url(#hair)" stroke="#9c4667" stroke-width="3" stroke-linejoin="round">
-              <path d="M156 152Q139 139 144 119L124 112L145 101L137 79L163 89L164 57L188 78L197 45L216 75L240 54L240 84L270 75L256 101L279 111L259 126L257 153L239 132L226 151L211 130L194 150L183 129L170 151L161 127Z"/>
-              <path d="M161 124Q185 109 202 126L195 151L181 135L168 153Z" fill="#e88ca2"/>
-              <path d="M204 123Q222 106 246 119L255 148L237 134L225 153L214 134Z" fill="#e88ca2"/>
-            </g>
-          </g>
-          <g fill="#ffd990"><path d="M91 213l4 9 10 1-8 6 3 10-9-6-9 6 3-10-8-6 10-1Z"/><path d="M317 300l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1Z"/></g>
-        </svg>
+        <a class="official-art" href="https://jujutsukaisen.jp/character/" target="_blank" rel="noopener" aria-label="Official Yuji Itadori character art from the Jujutsu Kaisen website"><img class="yuji-figure" src="https://jujutsukaisen.jp/images/chara_shimetsu/chara_detail1.png" alt="Official full-body anime artwork of Yuji Itadori" width="750" height="1094" /></a>
       </div>
     </section>
-    <footer class="page-foot">A FAN-MADE BIRTHDAY GREETING · MADE WITH LOVE</footer>
+    <footer class="page-foot">A FAN-MADE BIRTHDAY GREETING · OFFICIAL ART © GEGE AKUTAMI / SHUEISHA · JUJUTSU KAISEN PROJECT</footer>
   </main>
 </body>
 </html>
