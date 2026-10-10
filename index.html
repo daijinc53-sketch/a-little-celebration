@@ -68,6 +68,12 @@
     #carousel-view { position:absolute; z-index:3; left:50%; top:47%; transform:translate(-50%,-50%); width:min(78vw,900px); height:min(70vh,550px); pointer-events:auto; }
     #carousel-view canvas { display:block; width:100%; height:100%; }
     .carousel-loading { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); color:rgba(255,236,206,.82); font:11px Arial,sans-serif; letter-spacing:.2em; text-transform:uppercase; white-space:nowrap; text-shadow:0 0 14px #ffd17b; }
+    .carousel-fallback { position:absolute; inset:0; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 0 16px rgba(255,207,122,.25)); }
+    .carousel-fallback .fallback-orbit { transform-box:fill-box; transform-origin:center; animation:fallbackOrbit 18s linear infinite; }
+    .carousel-fallback .fallback-horse { transform-box:fill-box; transform-origin:center; animation:fallbackHorse 2.5s ease-in-out infinite alternate; }
+    .carousel-fallback .fallback-horse.two { animation-delay:-.8s; }
+    .carousel-fallback .fallback-horse.three { animation-delay:-1.6s; }
+    .carousel-fallback .fallback-roof { animation:fallbackGlow 3s ease-in-out infinite alternate; }
     .gilded-vines { position:absolute; z-index:2; inset:0; width:100%; height:100%; opacity:.58; overflow:visible; pointer-events:none; filter:drop-shadow(0 0 5px rgba(255,206,135,.24)); }
     .gilded-vines path,.gilded-vines ellipse,.gilded-vines circle { fill:none; stroke:#f5d39a; stroke-width:1.15; vector-effect:non-scaling-stroke; }
     .gilded-vines .fine { opacity:.52; stroke-width:.7; }
@@ -223,6 +229,9 @@
     @keyframes introSealFade { 0%,31%{opacity:1;transform:translate(-50%,-50%) scale(1)} 42%,100%{opacity:0;transform:translate(-50%,-50%) scale(.45)} }
     @keyframes introStarDrift { from{transform:translateY(5px) scale(.8);opacity:.55} to{transform:translateY(-9px) scale(1.12);opacity:1} }
     @keyframes introCaptionReveal { 0%,58%{opacity:0;transform:translate(-50%,8px)} 72%,100%{opacity:1;transform:translate(-50%,0)} }
+    @keyframes fallbackOrbit { to{transform:rotate(360deg)} }
+    @keyframes fallbackHorse { from{translate:0 0} to{translate:0 -9px} }
+    @keyframes fallbackGlow { from{filter:brightness(.94)} to{filter:brightness(1.12)} }
     @media (max-width:650px) {
       .page { min-height:500px; }
       .masthead { top:22px; left:22px; }
@@ -436,7 +445,7 @@
     resizeCanvas(); addEventListener('resize', resizeCanvas, {passive:true}); requestAnimationFrame(animateFx);
 
     const carouselHost = document.getElementById('carousel-view');
-    let carouselRenderer, carouselCamera, carouselScene, carouselMixer;
+    let carouselRenderer, carouselCamera, carouselScene, carouselMixer, carouselFrame;
     function resizeCarousel() {
       if (!carouselRenderer || !carouselHost) return;
       const w = carouselHost.clientWidth, h = carouselHost.clientHeight;
@@ -445,9 +454,44 @@
       carouselCamera.aspect = w / h;
       carouselCamera.updateProjectionMatrix();
     }
+    function showCarouselFallback(error) {
+      if (!carouselHost) return;
+      if (error) console.warn('Using the animated carousel fallback.', error);
+      if (carouselFrame) cancelAnimationFrame(carouselFrame);
+      if (carouselRenderer) { carouselRenderer.dispose(); carouselRenderer = null; }
+      carouselHost.innerHTML = `
+        <svg class="carousel-fallback" viewBox="0 0 680 500" role="img" aria-label="A softly glowing animated carousel">
+          <defs>
+            <linearGradient id="fallbackRoof" x1="0" x2="1"><stop stop-color="#e6a8c5"/><stop offset=".48" stop-color="#fff3d4"/><stop offset="1" stop-color="#d883b0"/></linearGradient>
+            <linearGradient id="fallbackHorse" x1="0" x2="1"><stop stop-color="#ffc5d8"/><stop offset=".55" stop-color="#fff0d2"/><stop offset="1" stop-color="#e59abd"/></linearGradient>
+            <radialGradient id="fallbackBase"><stop stop-color="#ffe7ae" stop-opacity=".46"/><stop offset="1" stop-color="#ffe7ae" stop-opacity="0"/></radialGradient>
+          </defs>
+          <ellipse cx="340" cy="370" rx="260" ry="84" fill="url(#fallbackBase)"/>
+          <g class="fallback-orbit" fill="none" stroke="#ffdfa0" stroke-opacity=".48">
+            <ellipse cx="340" cy="370" rx="255" ry="40"/><ellipse cx="340" cy="370" rx="205" ry="31" stroke-opacity=".68"/>
+          </g>
+          <path d="M130 350 Q340 315 550 350 L585 379 Q340 421 95 379Z" fill="rgba(255,235,188,.18)" stroke="#f8d48f" stroke-width="2"/>
+          <ellipse cx="340" cy="370" rx="245" ry="34" fill="none" stroke="#ffe2a2" stroke-width="2"/>
+          <g stroke="#ffe3aa" stroke-width="3" stroke-linecap="round" opacity=".88">
+            <path d="M220 218V344M340 196V348M460 218V344"/>
+            <path d="M340 112V356" stroke-width="5"/>
+          </g>
+          <g fill="url(#fallbackHorse)" stroke="#ffe6b1" stroke-width="2" stroke-linejoin="round">
+            <g class="fallback-horse one" transform="translate(174 252)"><path d="M0-42V43" fill="none" stroke="#ffe3aa" stroke-width="3"/><path d="M8 15Q15-2 36 1L49-10 56-7 52 3Q62 13 55 26L47 25 44 15 37 29 39 43 33 44 29 30 19 43 13 42 17 27 6 28 1 33-4 29 1 18Z"/><path d="M48-7l7-12 3 12"/></g>
+            <g class="fallback-horse two" transform="translate(294 224)"><path d="M0-14V70" fill="none" stroke="#ffe3aa" stroke-width="3"/><path d="M8 15Q15-2 36 1L49-10 56-7 52 3Q62 13 55 26L47 25 44 15 37 29 39 43 33 44 29 30 19 43 13 42 17 27 6 28 1 33-4 29 1 18Z"/><path d="M48-7l7-12 3 12"/></g>
+            <g class="fallback-horse three" transform="translate(414 252)"><path d="M0-42V43" fill="none" stroke="#ffe3aa" stroke-width="3"/><path d="M8 15Q15-2 36 1L49-10 56-7 52 3Q62 13 55 26L47 25 44 15 37 29 39 43 33 44 29 30 19 43 13 42 17 27 6 28 1 33-4 29 1 18Z"/><path d="M48-7l7-12 3 12"/></g>
+          </g>
+          <path d="M83 205Q340 45 597 205L576 230Q340 111 104 230Z" class="fallback-roof" fill="url(#fallbackRoof)" stroke="#ffe9b9" stroke-width="3"/>
+          <ellipse cx="340" cy="207" rx="257" ry="29" fill="none" stroke="#ffe7b5" stroke-width="3"/>
+          <path d="M300 141Q340 88 380 141L340 158Z" fill="#f8e5c6" stroke="#ffe7b5" stroke-width="2"/>
+          <path d="M340 104V66" stroke="#ffe6ac" stroke-width="3"/><path d="M340 57l5 10 11 1-8 7 2 11-10-5-10 5 2-11-8-7 11-1Z" fill="#fff0bd"/>
+          <g fill="#fff0bd"><circle cx="135" cy="193" r="4"/><circle cx="210" cy="159" r="4"/><circle cx="470" cy="159" r="4"/><circle cx="545" cy="193" r="4"/></g>
+        </svg>`;
+      carouselHost.setAttribute('aria-label','A softly glowing animated carousel');
+    }
     function startCarousel() {
       if (!window.THREE || !THREE.GLTFLoader || !carouselHost) {
-        carouselHost.innerHTML = '<div class="carousel-loading">The carousel could not load. Please refresh the page.</div>';
+        showCarouselFallback(new Error('The 3D libraries are unavailable.'));
         return;
       }
       carouselScene = new THREE.Scene();
@@ -455,7 +499,7 @@
       try {
         carouselRenderer = new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});
       } catch (error) {
-        carouselHost.innerHTML = '<div class="carousel-loading">This browser cannot display the 3D carousel.</div>';
+        showCarouselFallback(error);
         return;
       }
       carouselRenderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
@@ -519,12 +563,12 @@
         }
         carouselHost.setAttribute('aria-label','A carousel slowly turning around its center');
         resizeCarousel();
-      }, undefined, () => {
-        carouselHost.innerHTML = '<div class="carousel-loading">The model could not load. Check your connection and refresh.</div>';
+      }, undefined, error => {
+        showCarouselFallback(error);
       });
       const clock = new THREE.Clock();
       function drawCarousel() {
-        requestAnimationFrame(drawCarousel);
+        carouselFrame = requestAnimationFrame(drawCarousel);
         if (carouselMixer) carouselMixer.update(Math.min(clock.getDelta(),.05));
         carouselRenderer.render(carouselScene,carouselCamera);
       }
