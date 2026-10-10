@@ -94,6 +94,17 @@
     </section>
     <footer class="page-foot">虎杖悠仁からのバースデーメッセージ · 10月26日</footer>
   </main>
+  <script>
+    (() => {
+      const art = document.querySelector(".yuji-figure");
+      const source = art?.getAttribute("src") || "";
+      if (!source.startsWith("data:image/png;base64,")) return;
+      const binary = atob(source.slice(source.indexOf(",") + 1));
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      art.src = URL.createObjectURL(new Blob([bytes], { type: "image/png" }));
+    })();
+  </script>
 </body>
 </html>
 
