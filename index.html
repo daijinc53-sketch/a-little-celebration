@@ -245,8 +245,8 @@
     <button class="next" id="next" aria-label="继续"><span id="nextLabel">CONTINUE</span><span>↗</span></button>
     <div class="progress" aria-hidden="true"></div>
   </main>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="./assets/three.min.js"></script>
+  <script src="./assets/GLTFLoader.js"></script>
   <script>
     const page = document.getElementById('page');
     const scenes = [...document.querySelectorAll('[data-scene]')];
@@ -316,7 +316,7 @@
     }
     function startCarousel() {
       if (!window.THREE || !THREE.GLTFLoader || !carouselHost) {
-        carouselHost.innerHTML = '<div class="carousel-loading">木马模型需要联网加载</div>';
+        carouselHost.innerHTML = '<div class="carousel-loading">木马资源加载失败，请刷新页面</div>';
         return;
       }
       carouselScene = new THREE.Scene();
@@ -338,7 +338,7 @@
       const rimLight = new THREE.PointLight(0xff78bb,32,30); rimLight.position.set(0,7,-7); carouselScene.add(rimLight);
       const fillLight = new THREE.PointLight(0xffd18a,18,24); fillLight.position.set(5,5,6); carouselScene.add(fillLight);
       const loader = new THREE.GLTFLoader();
-      loader.load('https://cdn.3dassets.dev/assets/28656/v1/model.glb', gltf => {
+      loader.load('./assets/carousel.glb', gltf => {
         const ride = gltf.scene;
         const styleCarouselMaterial = material => {
           if (!material.color) return;
