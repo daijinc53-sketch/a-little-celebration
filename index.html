@@ -151,7 +151,7 @@
     .next:hover span { transform:translateX(4px); }
     .hint { position:absolute; z-index:10; bottom:clamp(28px,4.5vh,48px); left:50%; transform:translateX(-50%); color:rgba(255,244,248,.5); font:9px Arial,sans-serif; letter-spacing:.14em; white-space:nowrap; }
     .progress { position:absolute; z-index:10; left:0; bottom:0; height:2px; width:0; background:#ffd9a2; box-shadow:0 0 9px #ffd9a2; }
-    .page.playing .progress { animation: progress 49.8s linear forwards; }
+    .page.playing .progress { animation: progress 42.2s linear forwards; }
     .scene-two .beam { height:38%; top:12%; }
     .scene-three .stage-copy { display:none; }
     .scene-three .hint { bottom:24px; }
@@ -285,7 +285,6 @@
           <p class="signoff">with all my love</p>
         </article>
       </div>
-      <div class="hint">A little note, made just for you</div>
     </section>
     <section class="stage scene-four" data-scene="3" aria-label="October twenty-sixth">
       <article class="date-card">
@@ -499,7 +498,7 @@
       nextLabel.textContent = current === lastScene ? 'BEGIN AGAIN' : 'CONTINUE';
       const hints = [
         'Continue this little celebration',
-        'The carousel is turning · tap to make a little fireworks',
+        'The carousel is turning · tap for a little fireworks show',
         'A little note, made just for you',
         'Your day to celebrate · October 26',
         'May good things find you all year long',
