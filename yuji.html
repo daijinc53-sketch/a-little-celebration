@@ -38,7 +38,7 @@
     .aura::after { inset:19%; transform:rotate(37deg); border-style:dashed; }
     .energy { position:absolute; z-index:0; width:90%; height:85%; overflow:visible; filter:drop-shadow(0 0 7px rgba(255,87,132,.6)); }
     .energy path { fill:none; stroke:rgba(255,125,154,.62); stroke-width:2; stroke-linecap:round; stroke-dasharray:8 15; animation:energyFlow 4s linear infinite; }
-    .official-art { position:relative; z-index:1; display:grid; place-items:center; width:min(34vw,350px); height:min(64vh,520px); overflow:visible; filter:drop-shadow(0 16px 24px rgba(25,0,22,.34)) drop-shadow(0 0 16px rgba(255,205,145,.16)); animation:yujiEnter 1.1s cubic-bezier(.2,.8,.2,1) both; }
+    .official-art { position:relative; z-index:1; display:grid; place-items:center; width:min(34vw,350px); height:min(58vh,460px); overflow:visible; filter:drop-shadow(0 16px 24px rgba(25,0,22,.34)) drop-shadow(0 0 16px rgba(255,205,145,.16)); animation:yujiEnter 1.1s cubic-bezier(.2,.8,.2,1) both; }
     .yuji-figure { position:relative; z-index:1; display:block; width:100%; height:100%; object-fit:contain; animation:yujiBreathe 3.2s ease-in-out 1.1s infinite; }
     .spark { position:absolute; z-index:2; color:#ffe2a4; font-size:19px; text-shadow:0 0 12px #ffcf7b; animation:sparkFloat 2.4s ease-in-out infinite alternate; }
     .spark.one { left:9%; top:26%; }.spark.two { right:7%; top:34%; animation-delay:-1.2s; }.spark.three { left:19%; bottom:21%; font-size:12px; animation-delay:-.6s; }
@@ -64,9 +64,9 @@
     }
     @media (min-width:761px) and (max-height:700px) {
       body { overflow:auto; }
-      .hero { min-height:0; padding:10px 0 16px; }
-      .character-wrap { min-height:min(66vh,420px); }
-      .official-art { height:min(54vh,390px); }
+      .hero { min-height:0; align-items:start; padding:10px 0 16px; }
+      .character-wrap { align-self:start; min-height:0; }
+      .official-art { height:min(52vh,420px); }
     }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; } }
   </style>
