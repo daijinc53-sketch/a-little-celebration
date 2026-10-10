@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -151,7 +151,7 @@
     .next:hover span { transform:translateX(4px); }
     .hint { position:absolute; z-index:10; bottom:clamp(28px,4.5vh,48px); left:50%; transform:translateX(-50%); color:rgba(255,244,248,.5); font:9px Arial,sans-serif; letter-spacing:.14em; white-space:nowrap; }
     .progress { position:absolute; z-index:10; left:0; bottom:0; height:2px; width:0; background:#ffd9a2; box-shadow:0 0 9px #ffd9a2; }
-    .page.playing .progress { animation: progress 27s linear forwards; }
+    .page.playing .progress { animation: progress 49.8s linear forwards; }
     .scene-two .beam { height:38%; top:12%; }
     .scene-three .stage-copy { display:none; }
     .scene-three .hint { bottom:24px; }
@@ -173,6 +173,21 @@
     .wish-lines li::before { content:"✦"; margin-right:9px; color:#ffd58b; font-size:10px; }
     .wish-end { margin:26px 0 5px; color:#ffe2a8; font-size:20px; font-style:italic; letter-spacing:.12em; }
     .wish-sign { margin:0; color:rgba(255,237,210,.57); font:9px Arial,sans-serif; letter-spacing:.16em; }
+    .scene-six::before { content:""; position:absolute; inset:14% 18%; border-top:1px solid rgba(255,220,158,.22); border-bottom:1px solid rgba(255,220,158,.22); transform:rotate(-5deg); pointer-events:none; }
+    .keepsake { position:relative; width:min(76vw,620px); padding:clamp(30px,6vw,58px); color:var(--ink); text-align:center; background:linear-gradient(145deg,#fff6df,#eee2c8); border:1px solid rgba(255,230,180,.9); box-shadow:0 22px 55px rgba(48,0,30,.28),0 0 40px rgba(255,210,135,.17); }
+    .keepsake::before { content:""; position:absolute; inset:10px; border:1px solid rgba(143,107,76,.23); pointer-events:none; }
+    .keepsake-kicker { margin:0 0 14px; color:rgba(73,55,70,.58); font:9px Arial,sans-serif; letter-spacing:.24em; }
+    .keepsake-title { margin:0 0 27px; color:#963d68; font-size:clamp(22px,4vw,33px); font-weight:400; font-style:italic; }
+    .keepsake-list { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:0; padding:0; list-style:none; }
+    .keepsake-list li { display:grid; align-content:center; gap:12px; min-height:116px; padding:14px 10px; border-top:1px solid rgba(160,117,78,.35); border-bottom:1px solid rgba(160,117,78,.25); font-size:clamp(12px,1.6vw,15px); line-height:1.6; }
+    .keepsake-list span { color:#b47a52; font:9px Arial,sans-serif; letter-spacing:.16em; }
+    .scene-seven::before { content:""; position:absolute; left:50%; top:47%; width:min(62vw,530px); aspect-ratio:1; transform:translate(-50%,-50%); border:1px solid rgba(255,223,171,.28); border-radius:50%; box-shadow:0 0 55px rgba(255,210,135,.13),inset 0 0 45px rgba(255,210,135,.07); }
+    .finale { position:relative; width:min(78vw,620px); padding:clamp(38px,8vw,78px) 28px; text-align:center; }
+    .finale-star { display:block; margin-bottom:19px; color:#ffe4aa; font-size:34px; text-shadow:0 0 20px #ffd17b; animation:starPulse 2.4s ease-in-out infinite; }
+    .finale-kicker { margin:0 0 17px; color:rgba(255,225,178,.72); font:9px Arial,sans-serif; letter-spacing:.28em; }
+    .finale-title { margin:0; color:#fff3d8; font-size:clamp(34px,7vw,64px); font-weight:400; font-style:italic; letter-spacing:.07em; text-shadow:0 2px 24px rgba(255,216,154,.24); }
+    .finale-copy { max-width:450px; margin:23px auto 0; color:rgba(255,244,226,.85); font-size:clamp(14px,2vw,18px); font-style:italic; line-height:1.9; }
+    .finale-sign { margin:27px 0 0; color:rgba(255,225,178,.66); font:9px Arial,sans-serif; letter-spacing:.2em; }
     @keyframes breathe { 0%,100%{opacity:.48;transform:translate(-50%,-50%) scale(.9)} 50%{opacity:.9;transform:translate(-50%,-50%) scale(1.08)} }
     @keyframes beam { 0%,100%{opacity:.35;filter:drop-shadow(0 0 4px #fff)} 50%{opacity:.95;filter:drop-shadow(0 0 12px #fff)} }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
@@ -197,6 +212,11 @@
       .date-card { width:min(82vw,520px); min-height:300px; padding:28px 22px; }
       .date-number { font-size:clamp(72px,20vw,108px); }
       .wish-card { width:min(86vw,570px); padding:34px 24px; }
+      .keepsake { width:min(88vw,620px); padding:34px 22px; }
+      .keepsake-list { grid-template-columns:1fr; gap:10px; }
+      .keepsake-list li { min-height:0; grid-template-columns:42px 1fr; gap:8px; text-align:left; padding:10px; }
+      .scene-six::before { inset:12% 8%; }
+      .finale { width:88vw; }
       .stage-copy { bottom:13vh; }
       .next { right:22px; bottom:23px; }
       .hint { bottom:26px; left:46%; }
@@ -213,15 +233,17 @@
     <canvas id="fx" aria-hidden="true"></canvas>
     <div class="art-frame" aria-hidden="true"><i class="frame-corner tl"></i><i class="frame-corner tr"></i><i class="frame-corner bl"></i><i class="frame-corner br"></i></div>
     <header class="masthead"><span class="asterisk">✳</span><span>a little celebration</span></header>
-    <nav class="steps" aria-label="故事进度">
-      <button class="step active" data-step="0" aria-label="第 1 幕"><span>01</span></button>
-      <button class="step" data-step="1" aria-label="第 2 幕"><span>02</span></button>
-      <button class="step" data-step="2" aria-label="第 3 幕"><span>03</span></button>
-      <button class="step" data-step="3" aria-label="第 4 幕"><span>04</span></button>
-      <button class="step" data-step="4" aria-label="第 5 幕"><span>05</span></button>
+    <nav class="steps" aria-label="Story progress">
+      <button class="step active" data-step="0" aria-label="Scene 1"><span>01</span></button>
+      <button class="step" data-step="1" aria-label="Scene 2"><span>02</span></button>
+      <button class="step" data-step="2" aria-label="Scene 3"><span>03</span></button>
+      <button class="step" data-step="3" aria-label="Scene 4"><span>04</span></button>
+      <button class="step" data-step="4" aria-label="Scene 5"><span>05</span></button>
+      <button class="step" data-step="5" aria-label="Scene 6"><span>06</span></button>
+      <button class="step" data-step="6" aria-label="Scene 7"><span>07</span></button>
     </nav>
 
-    <section class="stage scene-one active" data-scene="0" aria-label="全息光束">
+    <section class="stage scene-one active" data-scene="0" aria-label="A wish takes shape">
       <div class="glow-orb"></div><div class="beam"></div>
       <div class="holo-object" aria-hidden="true">
         <i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i>
@@ -231,7 +253,7 @@
       <div class="stage-copy"><small>01 · a wish takes shape</small><p>For the brightest soul in my little universe.</p></div>
     </section>
 
-    <section class="stage scene-two" data-scene="1" aria-label="全息生日礼物">
+    <section class="stage scene-two" data-scene="1" aria-label="A carousel of light">
       <svg class="gilded-vines" viewBox="0 0 1000 900" preserveAspectRatio="none" aria-hidden="true">
         <g>
           <path d="M78 760 C148 700 186 622 150 551 C118 487 91 443 124 374 C147 327 197 302 226 328 C252 352 232 393 202 390 C177 388 174 358 194 349"/>
@@ -248,11 +270,11 @@
         </g>
       </svg>
       <div class="glow-orb"></div><div class="beam"></div>
-      <div id="carousel-view" aria-label="旋转木马加载中"><div class="carousel-loading">A little carousel of light</div></div>
+      <div id="carousel-view" aria-label="A little carousel of light"><div class="carousel-loading">A little carousel of light</div></div>
       <div class="stage-copy"><small>02 · the cake of stars</small><p>Make a wish, Jialu. Tonight, all the light is yours.</p></div>
     </section>
 
-    <section class="stage scene-three" data-scene="2" aria-label="生日祝福卡片">
+    <section class="stage scene-three" data-scene="2" aria-label="A birthday letter">
       <div class="letter-wrap">
         <article class="letter">
           <!-- PERSONALIZE: edit the name and message below before sharing. -->
@@ -263,33 +285,53 @@
           <p class="signoff">with all my love</p>
         </article>
       </div>
-      <div class="hint">把这份祝福送给特别的你</div>
+      <div class="hint">A little note, made just for you</div>
     </section>
-    <section class="stage scene-four" data-scene="3" aria-label="十月二十六日">
+    <section class="stage scene-four" data-scene="3" aria-label="October twenty-sixth">
       <article class="date-card">
         <p class="date-kicker">A DAY TO CELEBRATE</p>
         <p class="date-number">10.26</p>
         <p class="date-month">OCTOBER · 26</p>
         <div class="date-divider">✦</div>
-        <p class="date-copy">十月二十六日，是属于你的日子。<br />愿每一年，都有值得期待的新故事。</p>
+        <p class="date-copy">October 26 is your day.<br />May every year bring a story worth looking forward to.</p>
       </article>
     </section>
-    <section class="stage scene-five" data-scene="4" aria-label="新一岁的祝愿">
+    <section class="stage scene-five" data-scene="4" aria-label="A wish for the year ahead">
       <article class="wish-card">
         <p class="wish-kicker">05 · A NOTE FOR THE YEAR AHEAD</p>
-        <h2 class="wish-title">新一岁，愿你</h2>
+        <h2 class="wish-title">May this year bring you</h2>
         <ul class="wish-lines">
-          <li>喜欢的事，都有时间慢慢去做</li>
-          <li>努力的日子，常有温柔的回响</li>
-          <li>走过很多风景，也总有人分享</li>
-          <li>平安、自在，常常为自己开心</li>
+          <li>time for the things you love</li>
+          <li>gentle rewards for all your hard work</li>
+          <li>beautiful places and someone to share them with</li>
+          <li>peace, ease, and plenty of reasons to smile</li>
         </ul>
-        <p class="wish-end">生日快乐</p>
+        <p class="wish-end">Happy birthday</p>
         <p class="wish-sign">WITH ALL MY LOVE</p>
       </article>
     </section>
-    <div class="hint" id="hint">点击右下角，继续这份小小庆祝</div>
-    <button class="next" id="next" aria-label="继续"><span id="nextLabel">CONTINUE</span><span>↗</span></button>
+    <section class="stage scene-six" data-scene="5" aria-label="Little things to look forward to">
+      <article class="keepsake">
+        <p class="keepsake-kicker">06 · A LITTLE LIST FOR YOU</p>
+        <h2 class="keepsake-title">Little things to look forward to</h2>
+        <ul class="keepsake-list">
+          <li><span>01 /</span> Slow mornings and your favorite coffee</li>
+          <li><span>02 /</span> A song that finds you at just the right time</li>
+          <li><span>03 /</span> New memories with the people you love</li>
+        </ul>
+      </article>
+    </section>
+    <section class="stage scene-seven" data-scene="6" aria-label="A toast to you">
+      <div class="finale">
+        <span class="finale-star" aria-hidden="true">✧</span>
+        <p class="finale-kicker">07 · HERE’S TO YOU</p>
+        <h2 class="finale-title">Keep shining</h2>
+        <p class="finale-copy">May this next trip around the sun bring more light, laughter, and lovely surprises.</p>
+        <p class="finale-sign">HAPPY BIRTHDAY, JIALU</p>
+      </div>
+    </section>
+    <div class="hint" id="hint">Continue this little celebration</div>
+    <button class="next" id="next" aria-label="Continue"><span id="nextLabel">CONTINUE</span><span>↗</span></button>
     <div class="progress" aria-hidden="true"></div>
   </main>
   <script src="./assets/three.min.js"></script>
@@ -363,7 +405,7 @@
     }
     function startCarousel() {
       if (!window.THREE || !THREE.GLTFLoader || !carouselHost) {
-        carouselHost.innerHTML = '<div class="carousel-loading">木马资源加载失败，请刷新页面</div>';
+        carouselHost.innerHTML = '<div class="carousel-loading">The carousel could not load. Please refresh the page.</div>';
         return;
       }
       carouselScene = new THREE.Scene();
@@ -371,7 +413,7 @@
       try {
         carouselRenderer = new THREE.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});
       } catch (error) {
-        carouselHost.innerHTML = '<div class="carousel-loading">当前浏览器无法显示 3D 木马</div>';
+        carouselHost.innerHTML = '<div class="carousel-loading">This browser cannot display the 3D carousel.</div>';
         return;
       }
       carouselRenderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
@@ -433,10 +475,10 @@
           carouselMixer = new THREE.AnimationMixer(ride);
           carouselMixer.clipAction(gltf.animations[0]).setLoop(THREE.LoopRepeat).play();
         }
-        carouselHost.setAttribute('aria-label','绕中心轴缓慢旋转的旋转木马');
+        carouselHost.setAttribute('aria-label','A carousel slowly turning around its center');
         resizeCarousel();
       }, undefined, () => {
-        carouselHost.innerHTML = '<div class="carousel-loading">模型加载失败，请检查网络后刷新</div>';
+        carouselHost.innerHTML = '<div class="carousel-loading">The model could not load. Check your connection and refresh.</div>';
       });
       const clock = new THREE.Clock();
       function drawCarousel() {
@@ -456,11 +498,13 @@
       page.classList.toggle('playing', autoplay && current < lastScene);
       nextLabel.textContent = current === lastScene ? 'BEGIN AGAIN' : 'CONTINUE';
       const hints = [
-        '点击右下角，继续这份小小庆祝',
-        '旋转木马正在转动 · 点击放烟花',
-        '把这份祝福送给特别的你',
-        '记住这个属于你的日子 · 10.26',
-        '愿新的这一岁，常有好事发生'
+        'Continue this little celebration',
+        'The carousel is turning · tap to make a little fireworks',
+        'A little note, made just for you',
+        'Your day to celebrate · October 26',
+        'May good things find you all year long',
+        'A few lovely things still waiting for you',
+        'The brightest days are still ahead'
       ];
       hint.textContent = hints[current];
       clearTimeout(timer);
@@ -473,4 +517,5 @@
   </script>
 </body>
 </html>
+
 
