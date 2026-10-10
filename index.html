@@ -70,6 +70,7 @@
     .carousel-loading { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); color:rgba(255,236,206,.82); font:11px Arial,sans-serif; letter-spacing:.2em; text-transform:uppercase; white-space:nowrap; text-shadow:0 0 14px #ffd17b; }
     .carousel-fallback { position:absolute; inset:0; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 0 16px rgba(255,207,122,.25)); }
     .carousel-fallback .fallback-orbit { transform-box:fill-box; transform-origin:center; animation:fallbackOrbit 18s linear infinite; }
+    .carousel-fallback .fallback-turn { transform-box:fill-box; transform-origin:center; animation:fallbackTurn 20s linear infinite; }
     .carousel-fallback .fallback-horse { transform-box:fill-box; transform-origin:center; animation:fallbackHorse 2.5s ease-in-out infinite alternate; }
     .carousel-fallback .fallback-horse.two { animation-delay:-.8s; }
     .carousel-fallback .fallback-horse.three { animation-delay:-1.6s; }
@@ -230,6 +231,7 @@
     @keyframes introStarDrift { from{transform:translateY(5px) scale(.8);opacity:.55} to{transform:translateY(-9px) scale(1.12);opacity:1} }
     @keyframes introCaptionReveal { 0%,58%{opacity:0;transform:translate(-50%,8px)} 72%,100%{opacity:1;transform:translate(-50%,0)} }
     @keyframes fallbackOrbit { to{transform:rotate(360deg)} }
+    @keyframes fallbackTurn { 0%{transform:scaleX(1)} 25%{transform:scaleX(0)} 50%{transform:scaleX(-1)} 75%{transform:scaleX(0)} 100%{transform:scaleX(1)} }
     @keyframes fallbackHorse { from{translate:0 0} to{translate:0 -9px} }
     @keyframes fallbackGlow { from{filter:brightness(.94)} to{filter:brightness(1.12)} }
     @media (max-width:650px) {
@@ -445,7 +447,7 @@
     resizeCanvas(); addEventListener('resize', resizeCanvas, {passive:true}); requestAnimationFrame(animateFx);
 
     const carouselHost = document.getElementById('carousel-view');
-    let carouselRenderer, carouselCamera, carouselScene, carouselMixer, carouselFrame;
+    let carouselRenderer, carouselCamera, carouselScene, carouselMixer, carouselTurntable, carouselFrame;
     function resizeCarousel() {
       if (!carouselRenderer || !carouselHost) return;
       const w = carouselHost.clientWidth, h = carouselHost.clientHeight;
@@ -472,6 +474,7 @@
           </g>
           <path d="M130 350 Q340 315 550 350 L585 379 Q340 421 95 379Z" fill="rgba(255,235,188,.18)" stroke="#f8d48f" stroke-width="2"/>
           <ellipse cx="340" cy="370" rx="245" ry="34" fill="none" stroke="#ffe2a2" stroke-width="2"/>
+          <g class="fallback-turn">
           <g stroke="#ffe3aa" stroke-width="3" stroke-linecap="round" opacity=".88">
             <path d="M220 218V344M340 196V348M460 218V344"/>
             <path d="M340 112V356" stroke-width="5"/>
@@ -484,6 +487,7 @@
           <path d="M83 205Q340 45 597 205L576 230Q340 111 104 230Z" class="fallback-roof" fill="url(#fallbackRoof)" stroke="#ffe9b9" stroke-width="3"/>
           <ellipse cx="340" cy="207" rx="257" ry="29" fill="none" stroke="#ffe7b5" stroke-width="3"/>
           <path d="M300 141Q340 88 380 141L340 158Z" fill="#f8e5c6" stroke="#ffe7b5" stroke-width="2"/>
+          </g>
           <path d="M340 104V66" stroke="#ffe6ac" stroke-width="3"/><path d="M340 57l5 10 11 1-8 7 2 11-10-5-10 5 2-11-8-7 11-1Z" fill="#fff0bd"/>
           <g fill="#fff0bd"><circle cx="135" cy="193" r="4"/><circle cx="210" cy="159" r="4"/><circle cx="470" cy="159" r="4"/><circle cx="545" cy="193" r="4"/></g>
         </svg>`;
@@ -549,7 +553,9 @@
         const size = bounds.getSize(new THREE.Vector3());
         const center = bounds.getCenter(new THREE.Vector3());
         ride.position.x -= center.x; ride.position.z -= center.z; ride.position.y -= bounds.min.y;
-        carouselScene.add(ride);
+        carouselTurntable = new THREE.Group();
+        carouselTurntable.add(ride);
+        carouselScene.add(carouselTurntable);
         const aspect = carouselHost.clientWidth / Math.max(1,carouselHost.clientHeight);
         const vHalf = THREE.MathUtils.degToRad(carouselCamera.fov/2);
         const hHalf = Math.atan(Math.tan(vHalf)*aspect);
@@ -569,7 +575,9 @@
       const clock = new THREE.Clock();
       function drawCarousel() {
         carouselFrame = requestAnimationFrame(drawCarousel);
-        if (carouselMixer) carouselMixer.update(Math.min(clock.getDelta(),.05));
+        const delta = Math.min(clock.getDelta(),.05);
+        if (carouselMixer) carouselMixer.update(delta);
+        if (carouselTurntable) carouselTurntable.rotation.y += delta * .28;
         carouselRenderer.render(carouselScene,carouselCamera);
       }
       drawCarousel();
