@@ -38,7 +38,7 @@
     .energy { position:absolute; z-index:0; width:90%; height:85%; overflow:visible; filter:drop-shadow(0 0 7px rgba(255,87,132,.6)); }
     .energy path { fill:none; stroke:rgba(255,125,154,.62); stroke-width:2; stroke-linecap:round; stroke-dasharray:8 15; animation:energyFlow 4s linear infinite; }
     .official-art { position:relative; display:block; width:min(32vw,260px); height:min(74vh,560px); overflow:visible; filter:drop-shadow(0 14px 20px rgba(20,0,19,.24)); }
-    .yuji-figure { position:relative; z-index:1; display:block; width:100%; height:100%; overflow:visible; animation:yujiBreathe 3.2s ease-in-out infinite; }
+    .yuji-figure { position:relative; z-index:1; display:block; width:100%; height:100%; object-fit:cover; object-position:28% center; clip-path:polygon(63% 14%,68% 14%,72% 15%,74% 17%,75% 20%,73% 22%,72% 24%,73% 25%,74% 27%,75% 30%,77% 34%,78% 38%,77% 44%,78% 48%,80% 52%,80% 57%,80% 63%,79% 67%,77% 71%,76% 74%,75% 77%,74% 81%,74% 86%,74% 90%,76% 92%,80% 94%,85% 95%,86% 96%,85% 97%,81% 96%,76% 94%,72% 93%,69% 93%,66% 95%,62% 97%,58% 98%,53% 99%,49% 98%,48% 97%,50% 94%,53% 91%,50% 88%,48% 83%,45% 78%,43% 73%,42% 68%,39% 62%,36% 58%,33% 55%,31% 51%,33% 48%,35% 44%,37% 40%,38% 37%,40% 35%,42% 34%,43% 31%,46% 29%,50% 28%,53% 27%,55% 24%,58% 20%,61% 17%); animation:yujiBreathe 3.2s ease-in-out infinite; }
     .spark { position:absolute; z-index:2; color:#ffe2a4; font-size:19px; text-shadow:0 0 12px #ffcf7b; animation:sparkFloat 2.4s ease-in-out infinite alternate; }
     .spark.one { left:9%; top:26%; }.spark.two { right:7%; top:34%; animation-delay:-1.2s; }.spark.three { left:19%; bottom:21%; font-size:12px; animation-delay:-.6s; }
     .page-foot { position:relative; z-index:2; display:flex; justify-content:center; padding:0 20px 28px; color:rgba(255,226,190,.46); font:8px Arial,sans-serif; letter-spacing:.2em; text-align:center; }
@@ -54,8 +54,8 @@
       .top-note { max-width:115px; line-height:1.6; }
       .hero { display:flex; width:min(570px,86vw); flex-direction:column; gap:4px; padding:42px 0 28px; }
       .letter { order:1; width:100%; padding:28px 30px; }
-      .character-wrap { order:2; width:100%; min-height:480px; }
-      .official-art { width:min(56vw,210px); height:min(120vw,453px); }
+      .character-wrap { order:2; width:100%; min-height:390px; }
+      .official-art { width:min(56vw,210px); height:370px; }
       .aura { width:min(70vw,340px); }
       h1 { font-size:clamp(37px,10vw,52px); }
       .page-foot { padding-bottom:24px; }
@@ -88,7 +88,7 @@
         <div class="aura" aria-hidden="true"></div>
         <svg class="energy" viewBox="0 0 420 580" aria-hidden="true"><path d="M35 406C83 376 42 329 80 292S93 214 48 186M350 440c-38-51 32-92 1-137s-5-92 37-122M62 490c33-28 8-60 29-79M349 115c-24 30-9 54-30 75"/><path d="M73 145c23-21 33-15 48-40M330 494c-23-22-29-45-18-68"/></svg>
         <span class="spark one" aria-hidden="true">✦</span><span class="spark two" aria-hidden="true">✧</span><span class="spark three" aria-hidden="true">✦</span>
-        <a class="official-art" href="https://jujutsukaisen.jp/news/20251010_01.php" target="_blank" rel="noopener" aria-label="Official Yuji Itadori TaS10th anniversary kimono artwork"><svg class="yuji-figure" viewBox="286 0 314 675" role="img" aria-label="Yuji Itadori in his official cream and orange anniversary kimono"><defs><clipPath id="yuji-cutout" clipPathUnits="userSpaceOnUse"><path d="M422 116 C408 116 401 130 403 145 C385 145 373 155 360 167 C337 185 318 210 306 236 C297 255 293 277 296 297 C297 316 305 332 315 344 L312 386 C308 407 308 424 315 443 C321 463 334 484 346 501 C358 520 364 539 367 557 C372 580 374 603 365 625 L351 652 C343 665 350 678 364 681 C380 683 392 663 405 648 C420 641 442 641 457 649 C470 654 477 670 490 678 C503 687 522 681 530 670 C536 659 521 644 511 626 C500 607 495 586 496 565 L500 505 C514 494 526 478 535 459 C544 437 545 415 551 395 C558 374 566 355 567 338 C568 320 563 301 557 284 C545 250 535 221 520 204 C509 191 496 185 481 181 C482 163 480 148 473 135 C465 121 446 114 430 116 C427 116 424 116 422 116 Z"/></clipPath></defs><image href="https://jujutsukaisen.jp/news/images/20251010_01_01.jpg" x="0" y="0" width="1200" height="675" preserveAspectRatio="none" clip-path="url(#yuji-cutout)"/></svg></a>
+        <a class="official-art" href="https://jujutsukaisen.jp/news/20251010_01.php" target="_blank" rel="noopener" aria-label="Official Yuji Itadori TaS10th anniversary kimono artwork"><img class="yuji-figure" src="https://jujutsukaisen.jp/news/images/20251010_01_01.jpg" alt="Yuji Itadori in his official cream and orange TaS10th anniversary kimono, shown full-body" width="1200" height="675" /></a>
       </div>
     </section>
     <footer class="page-foot">A FAN-MADE BIRTHDAY GREETING · OFFICIAL JUJUTSU KAISEN ART · © GEGE AKUTAMI / SHUEISHA</footer>
