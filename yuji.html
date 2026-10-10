@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#96104f" />
+  <title>A Birthday Note from Yuji</title>
+  <style>
+    :root { --berry:#96104f; --deep:#260d23; --red:#c33151; --gold:#ffd58c; --paper:#f7efdf; --ink:#392b39; }
+    * { box-sizing:border-box; }
+    html,body { min-height:100%; margin:0; }
+    body { min-height:100svh; overflow:hidden; color:#fff4eb; background:radial-gradient(ellipse at 68% 45%,#b32362 0,transparent 42%),radial-gradient(ellipse at 50% 100%,#3b0c30 0,transparent 52%),linear-gradient(145deg,#92104d,#651039); font-family:Georgia,"Times New Roman",serif; }
+    .poster { position:relative; display:flex; min-height:100svh; flex-direction:column; isolation:isolate; overflow:hidden; }
+    .poster::before { content:""; position:absolute; z-index:-1; inset:18px; border:1px solid rgba(255,218,158,.34); box-shadow:inset 0 0 42px rgba(255,213,144,.045); pointer-events:none; }
+    .poster::after { content:""; position:absolute; z-index:-1; inset:25px; border:1px solid rgba(255,218,165,.14); pointer-events:none; }
+    .topbar { position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:clamp(28px,5vh,52px) clamp(36px,8vw,110px) 0; font:10px Arial,sans-serif; letter-spacing:.18em; }
+    .back { color:rgba(255,244,235,.76); text-decoration:none; transition:color .2s; }
+    .back:hover { color:#fff; }
+    .back span { margin-right:8px; color:var(--gold); font-size:16px; vertical-align:-2px; }
+    .top-note { color:rgba(255,223,176,.66); text-align:right; }
+    .hero { position:relative; display:grid; grid-template-columns:minmax(310px,.9fr) minmax(350px,1.1fr); align-items:center; width:min(1100px,88vw); flex:1; gap:clamp(12px,3vw,44px); margin:0 auto; padding:24px 0 44px; }
+    .letter { position:relative; z-index:1; padding:clamp(28px,4.5vw,58px); color:var(--ink); background:linear-gradient(145deg,#fff8e9,#efe2c9); border:1px solid rgba(255,234,195,.9); box-shadow:0 24px 64px rgba(24,0,19,.32); transform:rotate(-1.4deg); animation:letterArrive .9s cubic-bezier(.2,.8,.2,1) both; }
+    .letter::before { content:""; position:absolute; inset:10px; border:1px solid rgba(151,99,73,.25); pointer-events:none; }
+    .letter-kicker { margin:0 0 23px; color:#a14c68; font:9px Arial,sans-serif; letter-spacing:.25em; }
+    .recipient { margin:0 0 8px; color:rgba(57,43,57,.55); font:9px Arial,sans-serif; letter-spacing:.2em; }
+    h1 { margin:0; color:#9a2859; font-size:clamp(34px,5.4vw,60px); font-weight:400; font-style:italic; line-height:1; }
+    .rule { display:flex; align-items:center; gap:10px; margin:20px 0; color:#ba8155; font-size:12px; }
+    .rule::before,.rule::after { content:""; width:40px; height:1px; background:rgba(160,117,78,.4); }
+    .message { margin:0; font-size:clamp(14px,1.5vw,17px); font-style:italic; line-height:1.9; }
+    .signoff { margin:24px 0 0; color:#91375e; font-size:19px; font-style:italic; }
+    .signature { display:flex; justify-content:space-between; align-items:end; gap:12px; margin-top:27px; padding-top:14px; border-top:1px solid rgba(151,99,73,.25); }
+    .signature strong { color:#2f2030; font-size:17px; font-weight:400; font-style:italic; }
+    .signature small { color:rgba(57,43,57,.58); font:9px Arial,sans-serif; letter-spacing:.15em; }
+    .character-wrap { position:relative; display:grid; place-items:center; min-height:560px; }
+    .aura { position:absolute; width:min(42vw,470px); aspect-ratio:1; border:1px solid rgba(255,213,140,.23); border-radius:50%; box-shadow:0 0 48px rgba(255,100,139,.19),inset 0 0 55px rgba(255,181,129,.11); animation:auraPulse 3.6s ease-in-out infinite; }
+    .aura::before,.aura::after { content:""; position:absolute; inset:9%; border:1px solid rgba(255,220,160,.15); border-radius:50%; transform:rotate(-24deg); }
+    .aura::after { inset:19%; transform:rotate(37deg); border-style:dashed; }
+    .energy { position:absolute; z-index:0; width:90%; height:85%; overflow:visible; filter:drop-shadow(0 0 7px rgba(255,87,132,.6)); }
+    .energy path { fill:none; stroke:rgba(255,125,154,.62); stroke-width:2; stroke-linecap:round; stroke-dasharray:8 15; animation:energyFlow 4s linear infinite; }
+    .yuji-figure { position:relative; z-index:1; width:min(100%,440px); height:min(74vh,650px); overflow:visible; filter:drop-shadow(0 22px 30px rgba(20,0,19,.3)); }
+    .yuji-body { transform-box:fill-box; transform-origin:center bottom; animation:yujiBreathe 3.2s ease-in-out infinite; }
+    .yuji-raised-arm { transform-box:fill-box; transform-origin:70% 100%; animation:armBounce 3.2s ease-in-out infinite; }
+    .yuji-hair { transform-box:fill-box; transform-origin:center bottom; animation:hairBounce 3.2s ease-in-out infinite; }
+    .spark { position:absolute; z-index:2; color:#ffe2a4; font-size:19px; text-shadow:0 0 12px #ffcf7b; animation:sparkFloat 2.4s ease-in-out infinite alternate; }
+    .spark.one { left:9%; top:26%; }.spark.two { right:7%; top:34%; animation-delay:-1.2s; }.spark.three { left:19%; bottom:21%; font-size:12px; animation-delay:-.6s; }
+    .page-foot { position:relative; z-index:2; display:flex; justify-content:center; padding:0 20px 28px; color:rgba(255,226,190,.46); font:8px Arial,sans-serif; letter-spacing:.2em; text-align:center; }
+    @keyframes auraPulse { 0%,100%{opacity:.58;transform:scale(.96)} 50%{opacity:1;transform:scale(1.045)} }
+    @keyframes energyFlow { to{stroke-dashoffset:-92} }
+    @keyframes yujiBreathe { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+    @keyframes armBounce { 0%,100%{transform:rotate(0)} 50%{transform:rotate(-2deg)} }
+    @keyframes hairBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+    @keyframes sparkFloat { from{transform:translateY(5px) scale(.82);opacity:.55} to{transform:translateY(-10px) scale(1.12);opacity:1} }
+    @keyframes letterArrive { from{opacity:0;transform:translateY(20px) rotate(-3deg)} to{opacity:1;transform:translateY(0) rotate(-1.4deg)} }
+    @media (max-width:760px) {
+      body { overflow:auto; }
+      .poster { min-height:100svh; }
+      .topbar { padding:30px 32px 0; }
+      .top-note { max-width:115px; line-height:1.6; }
+      .hero { display:flex; width:min(570px,86vw); flex-direction:column; gap:4px; padding:42px 0 28px; }
+      .letter { order:1; width:100%; padding:28px 30px; }
+      .character-wrap { order:2; width:100%; min-height:390px; }
+      .yuji-figure { width:min(100%,350px); height:410px; }
+      .aura { width:min(70vw,340px); }
+      h1 { font-size:clamp(37px,10vw,52px); }
+      .page-foot { padding-bottom:24px; }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main class="poster">
+    <header class="topbar">
+      <a class="back" href="./"><span>↖</span> BACK TO THE CELEBRATION</a>
+      <span class="top-note">A SPECIAL DELIVERY · 10.26</span>
+    </header>
+    <section class="hero" aria-label="A birthday message from Yuji Itadori">
+      <article class="letter">
+        <p class="letter-kicker">JUJUTSU HIGH · BIRTHDAY MAIL</p>
+        <p class="recipient">TO: JIALU</p>
+        <h1>Happy<br />Birthday!</h1>
+        <div class="rule">✦</div>
+        <p class="message">Hey, Jialu! Hope your day is packed with good food, big laughs, and people who make you feel at home. Take on this next year at your own pace—you've got this. And save me a slice of cake!</p>
+        <p class="signoff">Have the best day ever!</p>
+        <div class="signature"><strong>— Yuji Itadori</strong><small>OCTOBER 26</small></div>
+      </article>
+      <div class="character-wrap">
+        <div class="aura" aria-hidden="true"></div>
+        <svg class="energy" viewBox="0 0 420 580" aria-hidden="true"><path d="M35 406C83 376 42 329 80 292S93 214 48 186M350 440c-38-51 32-92 1-137s-5-92 37-122M62 490c33-28 8-60 29-79M349 115c-24 30-9 54-30 75"/><path d="M73 145c23-21 33-15 48-40M330 494c-23-22-29-45-18-68"/></svg>
+        <span class="spark one" aria-hidden="true">✦</span><span class="spark two" aria-hidden="true">✧</span><span class="spark three" aria-hidden="true">✦</span>
+        <svg class="yuji-figure" viewBox="0 0 420 620" role="img" aria-labelledby="yuji-title yuji-desc">
+          <title id="yuji-title">Yuji Itadori</title>
+          <desc id="yuji-desc">A full-body, original vector illustration of Yuji Itadori in his dark uniform, smiling and raising a fist in celebration.</desc>
+          <defs>
+            <linearGradient id="uniform" x1="0" x2="1"><stop stop-color="#1d1522"/><stop offset=".5" stop-color="#393043"/><stop offset="1" stop-color="#17121d"/></linearGradient>
+            <linearGradient id="pants" x1="0" x2="1"><stop stop-color="#17121d"/><stop offset=".5" stop-color="#302838"/><stop offset="1" stop-color="#17121d"/></linearGradient>
+            <linearGradient id="skin" x1="0" x2="1"><stop stop-color="#e5ad8d"/><stop offset=".55" stop-color="#f1c5a5"/><stop offset="1" stop-color="#d99d80"/></linearGradient>
+            <linearGradient id="hair" x1="0" x2="1"><stop stop-color="#d87791"/><stop offset=".5" stop-color="#f2a5b1"/><stop offset="1" stop-color="#c65f7e"/></linearGradient>
+            <linearGradient id="hood" x1="0" x2="1"><stop stop-color="#9e2447"/><stop offset=".5" stop-color="#d1485f"/><stop offset="1" stop-color="#8b1d43"/></linearGradient>
+          </defs>
+          <g class="yuji-body">
+            <!-- legs and sneakers -->
+            <path d="M145 393L213 398L204 526L187 579L138 581L151 540L137 469Z" fill="url(#pants)" stroke="#604456" stroke-width="3"/>
+            <path d="M215 398L276 393L286 470L267 535L279 573L233 581L219 538L212 470Z" fill="url(#pants)" stroke="#604456" stroke-width="3"/>
+            <path d="M140 559L187 564L182 588Q165 599 124 592L119 584Q126 570 140 559Z" fill="#f0e8dc" stroke="#2a202d" stroke-width="4"/>
+            <path d="M234 559L275 557L297 581Q298 590 286 594L236 591L228 583Z" fill="#f0e8dc" stroke="#2a202d" stroke-width="4"/>
+            <path d="M121 586Q152 594 183 585M235 585Q269 592 296 584" fill="none" stroke="#bd3855" stroke-width="6" stroke-linecap="round"/>
+            <path d="M161 421L174 431M250 415L263 429M157 474L176 480M238 474L259 482" fill="none" stroke="#776071" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+            <!-- left arm -->
+            <path d="M144 226Q116 236 104 270L83 339Q81 357 99 362L116 357L143 291L171 269Z" fill="url(#uniform)" stroke="#17121d" stroke-width="4"/>
+            <path d="M83 337Q72 351 82 371L96 386Q109 389 119 374L115 358L99 352Z" fill="url(#skin)" stroke="#9a6559" stroke-width="3"/>
+            <!-- raised right arm -->
+            <g class="yuji-raised-arm">
+              <path d="M264 226Q292 211 311 187L326 150Q332 134 348 139L363 151Q369 161 358 182L340 226Q327 249 293 267Z" fill="url(#uniform)" stroke="#17121d" stroke-width="4"/>
+              <path d="M326 151Q320 137 326 117L330 95Q334 82 345 87L353 92L357 80Q363 71 371 78L377 86L381 76Q390 70 396 80L400 94Q406 89 411 97L414 117Q413 136 394 151L370 164L349 160Z" fill="url(#skin)" stroke="#9a6559" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M335 119l13 7M354 108l12 8M375 101l12 7" fill="none" stroke="#b77967" stroke-width="3" stroke-linecap="round"/>
+              <path d="M318 152Q340 141 363 160L351 184Q331 178 315 174Z" fill="url(#hood)" stroke="#711d3d" stroke-width="3"/>
+            </g>
+            <!-- torso, uniform, and hood -->
+            <path d="M148 222Q173 207 195 211L231 211Q258 209 281 230L304 295L282 385Q219 407 136 383L122 295Z" fill="url(#uniform)" stroke="#17121d" stroke-width="4"/>
+            <path d="M174 213Q210 236 249 213L268 244Q236 267 212 272Q184 265 156 242Z" fill="url(#hood)" stroke="#74203e" stroke-width="4"/>
+            <path d="M209 266L210 386M156 273L174 284M266 273L247 286" fill="none" stroke="#d34b64" stroke-width="4" stroke-linecap="round"/>
+            <path d="M146 300L169 309M278 302L254 311" fill="none" stroke="#6f5265" stroke-width="3"/>
+            <circle cx="211" cy="300" r="4" fill="#f5d596"/><circle cx="211" cy="330" r="4" fill="#f5d596"/>
+            <!-- neck and face -->
+            <path d="M185 191L185 225Q210 244 236 222L231 185Z" fill="url(#skin)" stroke="#b47b68" stroke-width="3"/>
+            <path d="M157 126Q165 93 208 91Q252 94 264 128L258 179Q249 211 214 219Q179 215 164 184Z" fill="url(#skin)" stroke="#a76a5b" stroke-width="3"/>
+            <path d="M169 152Q185 145 198 151M224 151Q239 144 252 150" fill="none" stroke="#503241" stroke-width="5" stroke-linecap="round"/>
+            <path d="M181 159L192 160M231 159L242 158" stroke="#231b27" stroke-width="5" stroke-linecap="round"/>
+            <path d="M204 176Q214 181 223 175" fill="none" stroke="#9b5c58" stroke-width="3" stroke-linecap="round"/>
+            <path d="M164 168L174 173M245 170L254 165" fill="none" stroke="#ba796d" stroke-width="2"/>
+            <!-- signature pink hair -->
+            <g class="yuji-hair" fill="url(#hair)" stroke="#9c4667" stroke-width="3" stroke-linejoin="round">
+              <path d="M156 152Q139 139 144 119L124 112L145 101L137 79L163 89L164 57L188 78L197 45L216 75L240 54L240 84L270 75L256 101L279 111L259 126L257 153L239 132L226 151L211 130L194 150L183 129L170 151L161 127Z"/>
+              <path d="M161 124Q185 109 202 126L195 151L181 135L168 153Z" fill="#e88ca2"/>
+              <path d="M204 123Q222 106 246 119L255 148L237 134L225 153L214 134Z" fill="#e88ca2"/>
+            </g>
+          </g>
+          <g fill="#ffd990"><path d="M91 213l4 9 10 1-8 6 3 10-9-6-9 6 3-10-8-6 10-1Z"/><path d="M317 300l3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1Z"/></g>
+        </svg>
+      </div>
+    </section>
+    <footer class="page-foot">A FAN-MADE BIRTHDAY GREETING · MADE WITH LOVE</footer>
+  </main>
+</body>
+</html>
+
